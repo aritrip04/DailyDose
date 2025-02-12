@@ -1,0 +1,31 @@
+import java.util.Scanner;
+import java.util.Arrays;
+
+class Solution {
+    public static boolean containsDuplicate(int[] nums) {
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length-1;i++)
+        {   if(nums[i]==nums[i+1]){
+            return true;
+            }
+               } 
+                  return false;
+        }
+        public static void main(String[] args){
+            Scanner scanner=new Scanner(System.in);
+            System.out.println("Enter number of elements:");
+            int n=scanner.nextInt();
+            int[] nums=new int[n];
+            System.out.println("Enter"+n+"Elements:");
+            for(int i=0;i<n;i++){
+                nums[i]=scanner.nextInt();
+            }
+            if (containsDuplicate(nums)){
+                System.out.println("Value appears twice");
+            }else{
+                System.out.println("Every Element is distinct");
+            }
+            scanner.close();
+        }
+    }
+
