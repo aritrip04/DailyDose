@@ -1,0 +1,20 @@
+class Solution {
+    public int maxChunksToSorted(int[] arr) {
+        int maxChunks=0;
+        int maxupto=-1;   
+        for(int i=0;i<arr.length;i++){
+            maxupto=Math.max(maxupto,arr[i]);
+                if(maxupto==i){
+                maxChunks++;
+            }
+        }
+        return maxChunks;
+    }
+    public static void main(String[] args) {
+        Solution sol =new Solution();
+        int[] arr1 ={4, 3, 2, 1, 0};
+        System.out.println(sol.maxChunksToSorted(arr1));
+        int[] arr2 = {1, 0, 2, 3, 4};
+        System.out.println(sol.maxChunksToSorted(arr2)); 
+    }
+}
