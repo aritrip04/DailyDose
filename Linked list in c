@@ -1,0 +1,211 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+};
+struct Node* head = NULL;
+struct Node* createNode(int item) {
+    struct Node* ptr= (struct Node*)malloc(sizeof(struct Node));
+    ptr->data = item;
+    ptr->next = NULL;
+    return ptr;
+}
+void addBeg(int item) {
+    struct Node* temp = createNode(item);
+    temp->next = head;
+    head = temp;
+}
+void addMid(int item) {
+    if (head == NULL || head->next == NULL) {
+        addBeg(item);
+        return;
+    }
+    struct Node *slow = head, *fast = head;
+    while (fast->next != NULL && fast->next->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    struct Node* temp = createNode(item);
+    temp->next = slow->next;
+    slow->next = temp;
+}
+void addNthPosition(int item, int pos) {
+    if (pos <= 1) {
+        addBeg(item);
+        return;
+    }
+    struct Node* ptr = createNode(item);
+    struct Node* temp = head;
+    for (int i = 1; temp != NULL && i < pos - 1; i++) {
+        temp = temp->next;
+    }
+    if (temp == NULL) {
+        printf("Position not found\n");
+        free(ptr);
+        return;
+    }
+    ptr->next = temp->next;
+    temp->next = ptr;
+}
+void addEnd(int item) {
+    struct Node* ptr = createNode(item);
+    if (head == NULL) {
+        head = ptr;
+        return;
+    }
+    struct Node* temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+    temp->next = ptr;
+}
+void delBeg() {
+    if (head == NULL) {
+        printf("List is empty!\n");
+        return;
+    }
+    struct Node* temp = head;
+    head = head->next;
+    free(temp);
+}
+void delMid() {
+    if (head == NULL || head->next == NULL) {
+        delBeg();
+        return;
+    }
+    struct Node *slow = head, *fast = head, *prev = NULL;
+    while (fast != NULL && fast->next != NULL) {
+        prev = slow;
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    prev->next = slow->next;
+    free(slow);
+}
+void delNthPosition(int pos) {
+    if (head == NULL || pos <= 1) {
+        delBeg();
+        return;
+    }
+    struct Node* temp = head;
+    struct Node* prev = NULL;
+    for (int i = 1; temp != NULL && i < pos; i++) {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (temp == NULL) {
+        printf("Position not found\n");
+        return;
+    }
+    prev->next = temp->next;
+    free(temp);
+}
+void delEnd() {
+    if (head == NULL) {
+        printf("List is empty!\n");
+        return;
+    }
+    if (head->next == NULL) {
+        free(head);
+        head = NULL;
+        return;
+    }
+    struct Node* temp = head;
+    struct Node* prev = NULL;
+    while (temp->next != NULL) {
+        prev = temp;
+        temp = temp->next;
+    }
+    prev->next = NULL;
+    free(temp);
+}
+void reverseList() {
+    struct Node *prev = NULL, *current = head, *next = NULL;
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    head = prev;
+}
+void display() {
+    struct Node* temp = head;
+    if (temp == NULL) {
+        printf("List is empty!\n");
+        return;
+    }
+    printf("Linked List: ");
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+int main() {
+    int ch, n, pos;
+        while (1) {
+        printf("\nMenu:\n");
+        printf("1. Insert at Begin\n");
+        printf("2. Insert at Middle\n");
+        printf("3. Insert at nth Position\n");
+        printf("4. Insert at End\n");
+        printf("5. Delete at Begin\n");
+        printf("6. Delete at Middle\n");
+        printf("7. Delete at nth Position\n");
+        printf("8. Delete at End\n");
+        printf("9. Reverse the Linked List\n");
+        printf("10. Display the Linked List\n");
+        printf("11. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &ch);
+        switch (ch) {
+            case 1:
+                printf("Enter element to be inserted: ");
+                scanf("%d", &n);
+                addBeg(n);
+                break;
+            case 2:
+                printf("Enter element to be inserted: ");
+                scanf("%d", &n);
+                addMid(n);
+                break;
+            case 3:
+                printf("Enter element and position: ");
+                scanf("%d %d", &n, &pos);
+                addNthPosition(n, pos);
+                break;
+            case 4:
+                printf("Enter element to be inserted: ");
+                scanf("%d", &n);
+                addEnd(n);
+                break;
+            case 5:
+                delBeg();
+                break;
+            case 6:
+                delMid();
+                break;
+            case 7:
+                printf("Enter position: ");
+                scanf("%d", &pos);
+                delNthPosition(pos);
+                break;
+            case 8:
+                delEnd();
+                break;
+            case 9:
+                reverseList();
+                break;
+            case 10:
+                display();
+                break;
+            case 11:
+                //printf("Exit\n");
+                exit(0);
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+    return 0;
+}
