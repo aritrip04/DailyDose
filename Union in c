@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <string.h>
+union STUDENT{
+    int roll;
+    char name[20];
+    float marks;
+};
+int main() {
+    union STUDENT u;
+    u.roll = 22;
+    printf("Num: %d\n", u.roll);
+    strcpy(u.name, "Aritri");
+    printf("Name: %s\n", u.name); 
+    u.marks = 88;
+    printf("Marks: %.2f\n", u.marks); 
+    return 0;
+}
+
