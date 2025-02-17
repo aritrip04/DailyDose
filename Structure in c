@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <string.h>
+struct STUDENT{
+    int roll;
+    char name[10];
+    float marks;
+};
+int main(){
+    struct STUDENT s;
+    s.roll = 10;
+    strcpy(s.name, "John");
+    s.marks = 67;
+    printf("Roll: %d\n", s.roll);
+    printf("Name: %s\n", s.name);
+    printf("Marks: %.2f\n", s.marks);
+    return 0;
+}
