@@ -1,0 +1,16 @@
+#include <stdio.h>
+int main() {
+    int arr1[10] = {10,36,47,14,32,37,44,52,20,30};  
+    int (*ptr)[10] = &arr1; 
+    printf("Pointer to an Array:\n");
+    for(int i = 0; i < 10; i++) {
+        printf("arr1[%d] = %d from pointer: %d\n", i, arr1[i], (*ptr)[i]);
+    }
+    int a = 1, b = 2, c = 3;
+    int *arr2[3] = {&a, &b, &c}; 
+    printf("Array of Pointers:\n");
+    for(int i = 0; i < 3; i++) {
+        printf("arr2[%d] = Address: %p, Value: %d\n", i, arr2[i], *arr2[i]);
+    }
+    return 0;
+}
