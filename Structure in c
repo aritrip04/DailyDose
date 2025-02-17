@@ -7,8 +7,8 @@ struct STUDENT{
 };
 int main(){
     struct STUDENT s;
-    s.roll = 10;
-    strcpy(s.name, "John");
+    s.roll = 22;
+    strcpy(s.name, "Aritri");
     s.marks = 67;
     printf("Roll: %d\n", s.roll);
     printf("Name: %s\n", s.name);
